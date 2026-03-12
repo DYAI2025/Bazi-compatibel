@@ -42,7 +42,7 @@ const animals = [
 
 // ... (rest of the code)
 
-const compatibility = {
+const compatibilityRomance = {
   0: { 0: 'moderate', 1: 'excellent', 2: 'moderate', 3: 'good', 4: 'excellent', 5: 'good', 6: 'good', 7: 'excellent', 8: 'excellent', 9: 'good', 10: 'good', 11: 'excellent' },
   1: { 0: 'excellent', 1: 'moderate', 2: 'good', 3: 'moderate', 4: 'good', 5: 'excellent', 6: 'challenging', 7: 'good', 8: 'good', 9: 'excellent', 10: 'moderate', 11: 'good' },
   2: { 0: 'moderate', 1: 'good', 2: 'moderate', 3: 'excellent', 4: 'good', 5: 'moderate', 6: 'excellent', 7: 'excellent', 8: 'good', 9: 'moderate', 10: 'excellent', 11: 'good' },
@@ -57,6 +57,9 @@ const compatibility = {
   11: { 0: 'excellent', 1: 'good', 2: 'good', 3: 'excellent', 4: 'good', 5: 'moderate', 6: 'excellent', 7: 'excellent', 8: 'good', 9: 'moderate', 10: 'excellent', 11: 'moderate' }
 };
 
+const compatibilityBusiness = { ...compatibilityRomance }; // Placeholder: Customize as needed
+const compatibilityFriendship = { ...compatibilityRomance }; // Placeholder: Customize as needed
+
 const elementInteractions: Record<string, Record<string, 'harmonious' | 'clashing' | 'neutral'>> = {
   'Holz': { 'Holz': 'neutral', 'Feuer': 'harmonious', 'Erde': 'clashing', 'Metall': 'clashing', 'Wasser': 'harmonious' },
   'Feuer': { 'Holz': 'harmonious', 'Feuer': 'neutral', 'Erde': 'harmonious', 'Metall': 'clashing', 'Wasser': 'clashing' },
@@ -67,20 +70,20 @@ const elementInteractions: Record<string, Record<string, 'harmonious' | 'clashin
 
 const compatibilityText = {
   excellent: {
-    de: '🎯 Ausgezeichnet! Eine außergewöhnlich harmonische Verbindung. Beide Partner ergänzen sich nicht nur perfekt, sondern teilen auch eine tiefe, intuitive Verbundenheit, die über Worte hinausgeht. Sie unterstützen sich gegenseitig bei der Verwirklichung ihrer individuellen Träume und haben eine gemeinsame Vision für die Zukunft. Konflikte sind selten, da beide Partner eine ähnliche Wertebasis haben und offen sowie empathisch kommunizieren. Diese Beziehung bietet ein hohes Maß an emotionaler Sicherheit und gegenseitigem Vertrauen, was es beiden ermöglicht, ihr volles Potenzial zu entfalten. Stärken: Hohe Resonanz, natürliche Kooperation, gemeinsame Ziele. Herausforderungen: Kaum vorhanden, außer der Gefahr, sich zu sehr in der eigenen Blase zu verlieren.',
-    en: '🎯 Excellent! An exceptionally harmonious connection. Both partners not only complement each other perfectly but also share a deep, intuitive bond that goes beyond words. They support each other in realizing their individual dreams and have a shared vision for the future. Conflicts are rare, as both partners share a similar value base and communicate openly and empathetically. This relationship offers a high level of emotional security and mutual trust, allowing both to reach their full potential. Strengths: High resonance, natural cooperation, shared goals. Challenges: Rarely any, other than the danger of becoming too isolated within their own bubble.'
+    de: '🎯 Ausgezeichnet! Eine außergewöhnlich harmonische Verbindung. Beide Partner ergänzen sich nicht nur perfekt, sondern teilen auch eine tiefe, intuitive Verbundenheit, die über Worte hinausgeht. Sie unterstützen sich gegenseitig bei der Verwirklichung ihrer individuellen Träume und haben eine gemeinsame Vision für die Zukunft. Konflikte sind selten, da beide Partner eine ähnliche Wertebasis haben und offen sowie empathisch kommunizieren. Diese Beziehung bietet ein hohes Maß an emotionaler Sicherheit und gegenseitigem Vertrauen, was es beiden ermöglicht, ihr volles Potenzial zu entfalten. Dynamik: Ihr findet natürlich in einen gemeinsamen Rhythmus, was den Alltag mühelos und freudvoll macht. Element-Beispiel: Wenn ein Partner Holz und der andere Feuer ist, nährt das Holz die Leidenschaft des Feuers, was zu einer inspirierenden und dynamischen Synergie führt. Stärken: Hohe Resonanz, natürliche Kooperation, gemeinsame Ziele und mühelose Synergie. Schwächen: Die größte Herausforderung ist die Gefahr, sich zu sehr in der eigenen \'perfekten\' Blase zu isolieren und dabei soziale Kontakte oder individuelles Wachstum außerhalb der Beziehung zu vernachlässigen.',
+    en: '🎯 Excellent! An exceptionally harmonious connection. Both partners not only complement each other perfectly but also share a deep, intuitive bond that goes beyond words. They support each other in realizing their individual dreams and have a shared vision for the future. Conflicts are rare, as both partners share a similar value base and communicate openly and empathetically. This relationship offers a high level of emotional security and mutual trust, allowing both to reach their full potential. Dynamics: You naturally sync your rhythms, making daily life feel effortless and joyful. Elemental Example: If one partner is Wood and the other is Fire, the Wood partner naturally fuels the Fire partner\'s passions, creating a dynamic of mutual inspiration. Strengths: High resonance, natural cooperation, shared goals, and effortless synergy. Weaknesses: The primary challenge is the danger of becoming too isolated within your own \'perfect\' bubble, potentially neglecting external social connections or individual growth outside the relationship.'
   },
   good: {
-    de: '👍 Gut! Eine solide und funktionierende Partnerschaft, die auf gegenseitigem Respekt und geteilten Interessen aufbaut. Die Partner schätzen die Stärken des anderen und arbeiten aktiv an einer stabilen, gemeinsamen Zukunft. Herausforderungen werden durch konstruktive Kommunikation und die Bereitschaft zu Kompromissen gelöst. Es gibt ein gesundes Gleichgewicht zwischen individueller Freiheit und dem Engagement für die Beziehung. Diese Verbindung ist geprägt von Zuverlässigkeit, gegenseitiger Anerkennung und der Freude, gemeinsam durch das Leben zu gehen. Stärken: Stabile Basis, gegenseitige Unterstützung, konstruktive Problemlösung. Herausforderungen: Erfordert bewusste Pflege, um nicht in eine Routine zu verfallen.',
-    en: '👍 Good! A solid and functioning partnership built on mutual respect and shared interests. The partners appreciate each other\'s strengths and actively work toward a stable future together. Challenges are resolved through constructive communication and a willingness to compromise. There is a healthy balance between individual freedom and commitment to the relationship. This connection is characterized by reliability, mutual recognition, and the joy of navigating life together. Strengths: Stable foundation, mutual support, constructive problem-solving. Challenges: Requires conscious effort to avoid falling into a routine.'
+    de: '👍 Gut! Eine solide und funktionierende Partnerschaft, die auf gegenseitigem Respekt und geteilten Interessen aufbaut. Die Partner schätzen die Stärken des anderen und arbeiten aktiv an einer stabilen, gemeinsamen Zukunft. Herausforderungen werden durch konstruktive Kommunikation und die Bereitschaft zu Kompromissen gelöst. Es gibt ein gesundes Gleichgewicht zwischen individueller Freiheit und dem Engagement für die Beziehung. Diese Verbindung ist geprägt von Zuverlässigkeit, gegenseitiger Anerkennung und der Freude, gemeinsam durch das Leben zu gehen. Dynamik: Ihr bildet ein starkes Team, in dem sich beide Partner wertgeschätzt und gehört fühlen. Element-Beispiel: Bei neutralen Element-Kombinationen, wie Erde und Erde, baut ihr ein stabiles Fundament auf, das sich auf gemeinsame, praktische Ziele konzentriert. Stärken: Stabile Basis, gegenseitige Unterstützung, konstruktive Problemlösung und verlässliche Partnerschaft. Schwächen: Die Beziehung erfordert bewusste Pflege, um nicht in eine vorhersehbare Routine zu verfallen; ihr müsst aktiv für Abwechslung und neue Impulse sorgen, um das Feuer am Brennen zu halten.',
+    en: '👍 Good! A solid and functioning partnership built on mutual respect and shared interests. The partners appreciate each other\'s strengths and actively work toward a stable future together. Challenges are resolved through constructive communication and a willingness to compromise. There is a healthy balance between individual freedom and commitment to the relationship. This connection is characterized by reliability, mutual recognition, and the joy of navigating life together. Dynamics: You build a strong team, where both partners feel valued and heard. Elemental Example: With neutral element combinations, like Earth and Earth, you build a stable foundation together, focusing on shared practical goals. Strengths: Stable foundation, mutual support, constructive problem-solving, and reliable partnership. Weaknesses: The relationship requires conscious effort to avoid falling into a predictable routine; you must actively cultivate excitement and novelty to keep the spark alive.'
   },
   moderate: {
-    de: '🤔 Moderat. Diese Verbindung erfordert bewusste Arbeit und ein tiefes Verständnis füreinander. Unterschiede in den Persönlichkeiten oder Lebensstilen können gelegentlich zu Missverständnissen führen. Der Schlüssel zum Erfolg liegt in der Geduld, der Offenheit und der Bereitschaft, die Perspektive des anderen wirklich zu verstehen. Beide Partner müssen aktiv an ihrer Kommunikation arbeiten und lernen, Differenzen nicht als Hindernisse, sondern als Lernchancen zu betrachten. Mit kontinuierlicher Anstrengung und gegenseitigem Respekt kann diese Beziehung zu einer stabilen und erfüllenden Partnerschaft heranwachsen. Stärken: Potenzial für persönliches Wachstum, Lernmöglichkeiten. Herausforderungen: Kommunikationsbarrieren, unterschiedliche Lebensstile, erfordert Geduld.',
-    en: '🤔 Moderate. This connection requires conscious work and a deep understanding of one another. Differences in personalities or lifestyles can occasionally lead to misunderstandings. The key to success lies in patience, openness, and the willingness to truly understand the other\'s perspective. Both partners must actively work on their communication and learn to view differences not as obstacles, but as opportunities for learning. With continuous effort and mutual respect, this relationship can grow into a stable and fulfilling partnership. Strengths: Potential for personal growth, learning opportunities. Challenges: Communication barriers, different lifestyles, requires patience.'
+    de: '🤔 Moderat. Diese Verbindung erfordert bewusste Arbeit und ein tiefes Verständnis füreinander. Unterschiede in den Persönlichkeiten oder Lebensstilen können gelegentlich zu Missverständnissen führen. Der Schlüssel zum Erfolg liegt in der Geduld, der Offenheit und der Bereitschaft, die Perspektive des anderen wirklich zu verstehen. Beide Partner müssen aktiv an ihrer Kommunikation arbeiten und lernen, Differenzen nicht als Hindernisse, sondern als Lernchancen zu betrachten. Mit kontinuierlicher Anstrengung und gegenseitigem Respekt kann diese Beziehung zu einer stabilen und erfüllenden Partnerschaft heranwachsen. Dynamik: Ihr werdet auf einige Hindernisse stoßen, aber diese sind essenziell, um eine tiefere Verbindung aufzubauen. Element-Beispiel: Wenn ein Partner Wasser und der andere Feuer ist, kann es zu Reibungen kommen, aber dieser \'Clash\' kann bei richtiger Handhabung in eine produktive, energiegeladene Dynamik umgewandelt werden. Stärken: Potenzial für signifikantes persönliches Wachstum, Lernmöglichkeiten und die Entwicklung emotionaler Resilienz. Schwächen: Häufige Kommunikationsbarrieren und unterschiedliche Lebensbedürfnisse können zu Frustration führen; es erfordert enorme Geduld und eine wertfreie Herangehensweise, um diese Lücken zu schließen.',
+    en: '🤔 Moderate. This connection requires conscious work and a deep understanding of one another. Differences in personalities or lifestyles can occasionally lead to misunderstandings. The key to success lies in patience, openness, and the willingness to truly understand the other\'s perspective. Both partners must actively work on their communication and learn to view differences not as obstacles, but as opportunities for learning. With continuous effort and mutual respect, this relationship can grow into a stable and fulfilling partnership. Dynamics: You will encounter bumps in the road, but these are essential for building a deeper connection. Elemental Example: If one partner is Water and the other is Fire, you may experience friction, but this clash can be channeled into a productive, high-energy dynamic if managed with patience. Strengths: Potential for significant personal growth, learning opportunities, and developing emotional resilience. Weaknesses: Frequent communication barriers and differing lifestyle needs can lead to frustration; it requires immense patience and a non-judgmental approach to bridge these gaps.'
   },
   challenging: {
-    de: '😰 Herausfordernd. Diese Beziehung erfordert ein hohes Maß an Energie, Kompromissbereitschaft und bewusster Anstrengung. Die Partner haben oft sehr unterschiedliche Ansätze zum Leben, was zu Spannungen führen kann. Doch gerade diese Unterschiede bieten ein enormes Potenzial für persönliches Wachstum und eine tiefgreifende Transformation. Es erfordert die Fähigkeit, die eigenen Bedürfnisse zeitweise zurückzustellen und die Welt durch die Augen des anderen zu sehen. Wenn beide bereit sind, an sich zu arbeiten und die Herausforderungen als gemeinsamen Weg zur Entwicklung zu begreifen, kann diese Beziehung eine außergewöhnliche Tiefe und Stärke erreichen. Stärken: Enormes Transformationspotenzial, tiefgreifende Lernerfahrungen. Herausforderungen: Hohes Konfliktpotenzial, erfordert hohe Kompromissbereitschaft und emotionale Reife.',
-    en: '😰 Challenging. This relationship requires a high level of energy, willingness to compromise, and conscious effort. The partners often have very different approaches to life, which can lead to tension. Yet, it is precisely these differences that offer enormous potential for personal growth and profound transformation. It requires the ability to temporarily set aside one\'s own needs and see the world through the other\'s eyes. If both are willing to work on themselves and view the challenges as a shared path to development, this relationship can achieve extraordinary depth and strength. Strengths: Enormous potential for transformation, profound learning experiences. Challenges: High conflict potential, requires high willingness to compromise and emotional maturity.'
+    de: '😰 Herausfordernd. Diese Beziehung erfordert ein hohes Maß an Energie, Kompromissbereitschaft und bewusster Anstrengung. Die Partner haben oft sehr unterschiedliche Ansätze zum Leben, was zu Spannungen führen kann. Doch gerade diese Unterschiede bieten ein enormes Potenzial für persönliches Wachstum und eine tiefgreifende Transformation. Es erfordert die Fähigkeit, die eigenen Bedürfnisse zeitweise zurückzustellen und die Welt durch die Augen des anderen zu sehen. Wenn beide bereit sind, an sich zu arbeiten und die Herausforderungen als gemeinsamen Weg zur Entwicklung zu begreifen, kann diese Beziehung eine außergewöhnliche Tiefe und Stärke erreichen. Dynamik: Ihr seid Spiegelbilder füreinander und reflektiert Teile eurer selbst, die Heilung oder Aufmerksamkeit benötigen. Element-Beispiel: Bei stark gegensätzlichen Elementen, wie Metall und Holz, kann es sich wie ein ständiger Kampf um die Kontrolle anfühlen, was immense Anstrengung erfordert, um eine gemeinsame Basis zu finden. Stärken: Enormes Transformationspotenzial, tiefgreifende Lernerfahrungen und der Aufbau tiefer emotionaler Reife. Schwächen: Hohes Konfliktpotenzial und grundlegend unterschiedliche Weltanschauungen können den Alltag anstrengend machen; es erfordert eine außergewöhnlich hohe Kompromissbereitschaft, enorme emotionale Reife und die Fähigkeit, auch bei intensiven Meinungsverschiedenheiten den Respekt zu wahren.',
+    en: '😰 Challenging. This relationship requires a high level of energy, willingness to compromise, and conscious effort. The partners often have very different approaches to life, which can lead to tension. Yet, it is precisely these differences that offer enormous potential for personal growth and profound transformation. It requires the ability to temporarily set aside one\'s own needs and see the world through the other\'s eyes. If both are willing to work on themselves and view the challenges as a shared path to development, this relationship can achieve extraordinary depth and strength. Dynamics: You are mirrors for each other, reflecting back parts of yourselves that need healing or attention. Elemental Example: When elements clash, such as Metal and Wood, it can feel like a constant struggle for control, requiring immense effort to find common ground. Strengths: Enormous potential for transformation, profound learning experiences, and building deep emotional maturity. Weaknesses: High conflict potential and fundamentally different worldviews can make daily life exhausting; it requires an exceptionally high willingness to compromise, immense emotional maturity, and the ability to maintain respect even during intense disagreements.'
   }
 };
 
@@ -90,7 +93,14 @@ export default function App() {
   const [foundAnimalIndex, setFoundAnimalIndex] = useState<number | null>(null);
   const [baziData, setBaziData] = useState<BaziResponse | null>(null);
   const [filter, setFilter] = useState<'excellent' | 'challenging' | 'moderate-good' | null>(null);
-  const [modalData, setModalData] = useState<{ title: string, score: string, details: string, elementInteraction: string } | null>(null);
+  const [baziError, setBaziError] = useState<string | null>(null);
+  const [modalData, setModalData] = useState<{ 
+    title: string, 
+    romance: { type: string, score: string, comp: string },
+    business: { type: string, score: string, comp: string },
+    friendship: { type: string, score: string, comp: string },
+    elementInteraction: string 
+  } | null>(null);
 
   const calculateAnimal = async () => {
     if (!selectedDate) return;
@@ -109,6 +119,7 @@ export default function App() {
     
     setFoundAnimalIndex(index);
     setBaziData(null); // Reset Bazi data
+    setBaziError(null); // Reset error
     setFilter(null);
 
     // Try API in background
@@ -122,25 +133,58 @@ export default function App() {
         setFoundAnimalIndex(apiIndex);
       }
     } catch (error) {
-      // Silently fail
+      console.error('Error fetching Bazi data:', error);
+      setBaziError(lang === 'de' ? 'Bazi-Daten derzeit nicht verfügbar.' : 'Bazi data currently unavailable.');
     }
   };
 
   const showCompatibility = (row: number, col: number) => {
     const animal1 = animals[row];
     const animal2 = animals[col];
-    const comp = compatibility[row][col] as keyof typeof compatibilityText;
-    const score = comp === 'excellent' ? '95%' : comp === 'good' ? '75%' : comp === 'moderate' ? '50%' : '30%';
+    
+    const getCompData = (compMatrix: any, type: string) => {
+        const comp = compMatrix[row][col] as keyof typeof compatibilityText;
+        const score = comp === 'excellent' ? '95%' : comp === 'good' ? '75%' : comp === 'moderate' ? '50%' : '30%';
+        return { type, score, comp };
+    };
+
+    const romance = getCompData(compatibilityRomance, lang === 'de' ? 'Romantik' : 'Romance');
+    const business = getCompData(compatibilityBusiness, lang === 'de' ? 'Geschäft' : 'Business');
+    const friendship = getCompData(compatibilityFriendship, lang === 'de' ? 'Freundschaft' : 'Friendship');
     
     const interaction = elementInteractions[animal1.element as keyof typeof elementInteractions][animal2.element as keyof typeof elementInteractions];
-    const elementInteraction = lang === 'de' 
-      ? (interaction === 'harmonious' ? '✨ Harmonische Element-Interaktion' : interaction === 'clashing' ? '⚡ Herausfordernde Element-Interaktion' : '⚖️ Neutrale Element-Interaktion')
-      : (interaction === 'harmonious' ? '✨ Harmonious element interaction' : interaction === 'clashing' ? '⚡ Challenging element interaction' : '⚖️ Neutral element interaction');
+    
+    // Descriptive mapping
+    const getInteractionDescription = (e1: string, e2: string, type: 'harmonious' | 'clashing' | 'neutral') => {
+      if (type === 'neutral') return lang === 'de' ? '⚖️ Neutral: Gleiche Elemente' : '⚖️ Neutral: Same elements';
+      
+      if (type === 'harmonious') {
+        if ((e1 === 'Holz' && e2 === 'Feuer') || (e1 === 'Feuer' && e2 === 'Holz')) return lang === 'de' ? '✨ Harmonisch: Holz nährt Feuer' : '✨ Harmonious: Wood fuels Fire';
+        if ((e1 === 'Feuer' && e2 === 'Erde') || (e1 === 'Erde' && e2 === 'Feuer')) return lang === 'de' ? '✨ Harmonisch: Feuer erschafft Erde' : '✨ Harmonious: Fire creates Earth';
+        if ((e1 === 'Erde' && e2 === 'Metall') || (e1 === 'Metall' && e2 === 'Erde')) return lang === 'de' ? '✨ Harmonisch: Erde erschafft Metall' : '✨ Harmonious: Earth creates Metal';
+        if ((e1 === 'Metall' && e2 === 'Wasser') || (e1 === 'Wasser' && e2 === 'Metall')) return lang === 'de' ? '✨ Harmonisch: Metall erschafft Wasser' : '✨ Harmonious: Metal creates Water';
+        if ((e1 === 'Wasser' && e2 === 'Holz') || (e1 === 'Holz' && e2 === 'Wasser')) return lang === 'de' ? '✨ Harmonisch: Wasser nährt Holz' : '✨ Harmonious: Water nourishes Wood';
+        return lang === 'de' ? '✨ Harmonisch: Unterstützende Energie' : '✨ Harmonious: Supportive energy';
+      }
+      
+      if (type === 'clashing') {
+        if ((e1 === 'Holz' && e2 === 'Erde') || (e1 === 'Erde' && e2 === 'Holz')) return lang === 'de' ? '⚡ Herausfordernd: Holz kontrolliert Erde' : '⚡ Challenging: Wood controls Earth';
+        if ((e1 === 'Erde' && e2 === 'Wasser') || (e1 === 'Wasser' && e2 === 'Erde')) return lang === 'de' ? '⚡ Herausfordernd: Erde kontrolliert Wasser' : '⚡ Challenging: Earth dams Water';
+        if ((e1 === 'Wasser' && e2 === 'Feuer') || (e1 === 'Feuer' && e2 === 'Wasser')) return lang === 'de' ? '⚡ Herausfordernd: Wasser löscht Feuer' : '⚡ Challenging: Water extinguishes Fire';
+        if ((e1 === 'Feuer' && e2 === 'Metall') || (e1 === 'Metall' && e2 === 'Feuer')) return lang === 'de' ? '⚡ Herausfordernd: Feuer schmilzt Metall' : '⚡ Challenging: Fire melts Metal';
+        if ((e1 === 'Metall' && e2 === 'Holz') || (e1 === 'Holz' && e2 === 'Metall')) return lang === 'de' ? '⚡ Herausfordernd: Metall schneidet Holz' : '⚡ Challenging: Metal chops Wood';
+        return lang === 'de' ? '⚡ Herausfordernd: Konflikt der Energien' : '⚡ Challenging: Conflict of energies';
+      }
+      return '';
+    };
+
+    const elementInteraction = getInteractionDescription(animal1.element, animal2.element, interaction);
 
     setModalData({
       title: `${animal1.emoji} ${lang === 'de' ? animal1.de : animal1.en} + ${animal2.emoji} ${lang === 'de' ? animal2.de : animal2.en}`,
-      score,
-      details: compatibilityText[comp][lang],
+      romance,
+      business,
+      friendship,
       elementInteraction
     });
   };
@@ -148,7 +192,7 @@ export default function App() {
 
   const getFilteredAnimals = () => {
     if (foundAnimalIndex === null || filter === null) return [];
-    return animals.map((a, i) => ({ ...a, index: i, comp: compatibility[foundAnimalIndex as keyof typeof compatibility][i as keyof typeof compatibility[0]] }))
+    return animals.map((a, i) => ({ ...a, index: i, comp: compatibilityRomance[foundAnimalIndex as keyof typeof compatibilityRomance][i as keyof typeof compatibilityRomance[0]] }))
       .filter(a => {
         if (filter === 'excellent') return a.comp === 'excellent';
         if (filter === 'challenging') return a.comp === 'challenging';
@@ -158,48 +202,58 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] p-10 text-white font-sans">
-      <h1 className="text-center text-6xl font-serif italic mb-2 text-white">
-        🐉 Chinese Zodiac
-      </h1>
-      <p className="text-center text-white/60 mb-10 uppercase tracking-widest text-xs">
-        {lang === 'de' ? 'Entdecke die Kompatibilität der 12 Tiere' : 'Discover the compatibility of the 12 animals'}
-      </p>
+    <div className="min-h-screen bg-zinc-950 p-6 md:p-10 text-zinc-100 font-sans">
+      <header className="text-center mb-12">
+        <h1 className="text-5xl md:text-6xl font-serif italic mb-3 text-white">
+          🐉 Chinese Zodiac
+        </h1>
+        <p className="text-zinc-400 uppercase tracking-[0.2em] text-[10px] font-bold">
+          {lang === 'de' ? 'Entdecke die Kompatibilität der 12 Tiere' : 'Discover the compatibility of the 12 animals'}
+        </p>
+      </header>
 
-      <div className="text-center mb-8">
-        <button onClick={() => setLang('de')} className={`px-5 py-2 rounded-full border border-yellow-500 mx-2 ${lang === 'de' ? 'bg-yellow-500 text-[#0f172a]' : 'text-yellow-500'}`}>DE</button>
-        <button onClick={() => setLang('en')} className={`px-5 py-2 rounded-full border border-yellow-500 mx-2 ${lang === 'en' ? 'bg-yellow-500 text-[#0f172a]' : 'text-yellow-500'}`}>EN</button>
+      <div className="flex justify-center mb-10">
+        <div className="bg-zinc-900 p-1 rounded-full border border-zinc-800">
+          <button onClick={() => setLang('de')} className={`px-6 py-2 rounded-full transition-all ${lang === 'de' ? 'bg-amber-500 text-zinc-950 font-bold' : 'text-zinc-400 hover:text-white'}`}>DE</button>
+          <button onClick={() => setLang('en')} className={`px-6 py-2 rounded-full transition-all ${lang === 'en' ? 'bg-amber-500 text-zinc-950 font-bold' : 'text-zinc-400 hover:text-white'}`}>EN</button>
+        </div>
       </div>
 
-      <div className="max-w-md mx-auto bg-[#1e293b] p-8 rounded-xl border border-yellow-500 mb-10 shadow-lg">
-        <h2 className="text-yellow-500 mb-5 text-xl font-serif italic">
+      <div className="max-w-md mx-auto bg-zinc-900 p-8 rounded-2xl border border-zinc-800 mb-10 shadow-2xl">
+        <h2 className="text-amber-400 mb-6 text-xl font-serif italic">
           {lang === 'de' ? '🎯 Finde dein Tier' : '🎯 Find Your Animal'}
         </h2>
-        <input type="date" onChange={(e) => setSelectedDate(e.target.value)} className="w-full p-3 rounded-lg bg-[#0f172a] border border-yellow-500 text-white mb-4" />
-        <button onClick={calculateAnimal} className="w-full p-3 rounded-lg bg-red-900 text-white font-bold hover:bg-red-800 transition-colors">
+        <input type="date" onChange={(e) => setSelectedDate(e.target.value)} className="w-full p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-white mb-4 focus:border-amber-500 outline-none transition-all" />
+        <button onClick={calculateAnimal} className="w-full p-4 rounded-xl bg-amber-500 text-zinc-950 font-bold hover:bg-amber-400 transition-colors">
           {lang === 'de' ? 'Berechnen' : 'Calculate'}
         </button>
         
+        {baziError && (
+          <div className="mt-4 p-4 bg-red-950/30 border border-red-900/50 rounded-xl text-red-200 text-sm italic text-center">
+            {baziError}
+          </div>
+        )}
+        
         {foundAnimalIndex !== null && (
-          <div className="mt-8 pt-8 border-t border-yellow-500">
-            <div className="mb-8 p-6 bg-[#0f172a] rounded-xl border border-yellow-500 text-center">
-              <h3 className="text-white text-xl font-serif italic mb-2">
+          <div className="mt-8 pt-8 border-t border-zinc-800">
+            <div className="mb-8 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 text-center">
+              <h3 className="text-zinc-300 text-sm font-serif italic mb-2">
                 {lang === 'de' ? 'Dein Tierzeichen:' : 'Your Zodiac Animal:'}
               </h3>
-              <div className="text-6xl mb-4">{animals[foundAnimalIndex].emoji}</div>
-              <p className="text-2xl font-bold mb-2">
+              <div className="text-7xl mb-4">{animals[foundAnimalIndex].emoji}</div>
+              <p className="text-3xl font-bold mb-2 text-white">
                 {lang === 'de' ? animals[foundAnimalIndex].de : animals[foundAnimalIndex].en}
               </p>
               {baziData && (
-                <div className="text-white mt-4 text-sm font-mono">
-                  <p className="font-bold mb-2 uppercase tracking-tight text-yellow-500">{lang === 'de' ? 'Deine Bazi-Pfeiler:' : 'Your Bazi Pillars:'}</p>
-                  <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="text-zinc-300 mt-6 text-xs font-sans">
+                  <p className="font-serif italic text-base mb-4 text-amber-400">{lang === 'de' ? 'Deine Bazi-Pfeiler:' : 'Your Bazi Pillars:'}</p>
+                  <div className="grid grid-cols-2 gap-3 text-center">
                     {['year', 'month', 'day', 'hour'].map((p) => (
-                      <div key={p} className="bg-[#1e293b] p-2 rounded border border-yellow-500">
-                        <div className="text-[10px] text-white/60 uppercase">{lang === 'de' ? p : p}</div>
-                        <div className="font-bold text-yellow-500">{baziData.pillars[p as keyof typeof baziData.pillars].stamm} {baziData.pillars[p as keyof typeof baziData.pillars].zweig}</div>
-                        <div className="text-[10px]">{baziData.pillars[p as keyof typeof baziData.pillars].tier}</div>
-                        <div className="text-[10px] text-white/80">{baziData.pillars[p as keyof typeof baziData.pillars].element}</div>
+                      <div key={p} className="bg-zinc-900 p-3 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col items-center gap-1">
+                        <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">{lang === 'de' ? p : p}</div>
+                        <div className="text-sm font-bold text-white font-mono">{baziData.pillars[p as keyof typeof baziData.pillars].stamm} {baziData.pillars[p as keyof typeof baziData.pillars].zweig}</div>
+                        <div className="text-[10px] text-zinc-400">{baziData.pillars[p as keyof typeof baziData.pillars].tier}</div>
+                        <div className="text-[9px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-300">{baziData.pillars[p as keyof typeof baziData.pillars].element}</div>
                       </div>
                     ))}
                   </div>
@@ -207,8 +261,8 @@ export default function App() {
               )}
             </div>
 
-            <h3 className="text-white mb-4 font-serif italic">{lang === 'de' ? 'Wähle eine Kategorie:' : 'Select a category:'}</h3>
-            <select onChange={(e) => setFilter(e.target.value as any)} className="w-full p-3 rounded-lg bg-[#0f172a] border border-yellow-500 text-white">
+            <h3 className="text-zinc-300 mb-4 font-serif italic text-sm">{lang === 'de' ? 'Wähle eine Kategorie:' : 'Select a category:'}</h3>
+            <select onChange={(e) => setFilter(e.target.value as any)} className="w-full p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-white focus:border-amber-500 outline-none">
               <option value="">-- {lang === 'de' ? 'Kategorie wählen' : 'Select category'} --</option>
               <option value="excellent">{lang === 'de' ? 'Am kompatibelsten' : 'Most compatible'}</option>
               <option value="moderate-good">{lang === 'de' ? 'Moderat bis Gut' : 'Moderate to Good'}</option>
@@ -217,10 +271,10 @@ export default function App() {
             
             {filter && (
               <div className="mt-6">
-                <h4 className="text-white font-serif italic mb-2">{lang === 'de' ? 'Ergebnisse:' : 'Results:'}</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <h4 className="text-zinc-400 font-serif italic mb-3 text-sm">{lang === 'de' ? 'Ergebnisse:' : 'Results:'}</h4>
+                <div className="grid grid-cols-2 gap-3">
                   {getFilteredAnimals().map(a => (
-                    <button key={a.en} onClick={() => showCompatibility(foundAnimalIndex, a.index)} className="p-3 bg-[#1e293b] rounded-lg border border-yellow-500 hover:bg-[#0f172a]">
+                    <button key={a.en} onClick={() => showCompatibility(foundAnimalIndex, a.index)} className="p-3 bg-zinc-950 rounded-xl border border-zinc-800 hover:border-amber-500/50 hover:bg-zinc-900 transition-all text-sm">
                       {a.emoji} {lang === 'de' ? a.de : a.en}
                     </button>
                   ))}
@@ -232,24 +286,24 @@ export default function App() {
       </div>
 
 
-      <div className="overflow-x-auto max-w-4xl mx-auto bg-[#1e293b] p-6 rounded-xl border border-yellow-500 shadow-lg">
-        <table className="w-full border-collapse font-mono text-xs">
+      <div className="overflow-x-auto max-w-4xl mx-auto bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-2xl">
+        <table className="w-full border-collapse font-mono text-[10px]">
           <thead>
             <tr>
-              <th className="p-3 border border-yellow-500"></th>
-              {animals.map(a => <th key={a.en} className="p-3 border border-yellow-500 text-yellow-500">{a.emoji}</th>)}
+              <th className="p-3 border border-zinc-800"></th>
+              {animals.map(a => <th key={a.en} className="p-3 border border-zinc-800 text-amber-500">{a.emoji}</th>)}
             </tr>
           </thead>
           <tbody>
             {animals.map((rowAnimal, rowIndex) => (
               <tr key={rowAnimal.en}>
-                <th className="p-3 border border-yellow-500 text-yellow-500">{rowAnimal.emoji}</th>
+                <th className="p-3 border border-zinc-800 text-amber-500">{rowAnimal.emoji}</th>
                 {animals.map((colAnimal, colIndex) => {
-                  const comp = compatibility[rowIndex as keyof typeof compatibility][colIndex as keyof typeof compatibility[0]];
-                  const color = comp === 'excellent' ? 'bg-red-900' : comp === 'good' ? 'bg-red-900/60' : comp === 'moderate' ? 'bg-red-900/30' : 'bg-red-900/10';
+                  const comp = compatibilityRomance[rowIndex as keyof typeof compatibilityRomance][colIndex as keyof typeof compatibilityRomance[0]];
+                  const color = comp === 'excellent' ? 'bg-amber-900/40' : comp === 'good' ? 'bg-amber-900/20' : comp === 'moderate' ? 'bg-zinc-800/50' : 'bg-zinc-950';
                   return (
-                    <td key={colAnimal.en} className={`p-3 border border-yellow-500 text-center cursor-pointer ${color}`} onClick={() => showCompatibility(rowIndex, colIndex)}>
-                      {comp === 'excellent' ? '●' : comp === 'good' ? '●' : comp === 'moderate' ? '●' : '○'}
+                    <td key={colAnimal.en} className={`p-3 border border-zinc-800 text-center cursor-pointer ${color} hover:bg-amber-500/20 transition-all`} onClick={() => showCompatibility(rowIndex, colIndex)}>
+                      {comp === 'excellent' ? '✨' : comp === 'good' ? '👍' : comp === 'moderate' ? '⚖️' : '😰'}
                     </td>
                   );
                 })}
@@ -260,13 +314,22 @@ export default function App() {
       </div>
 
       {modalData && (
-        <div className="fixed inset-0 bg-[#0f172a]/90 flex items-center justify-center p-4" onClick={() => setModalData(null)}>
-          <div className="bg-[#1e293b] p-8 rounded-xl max-w-md w-full border border-yellow-500" onClick={e => e.stopPropagation()}>
-            <h2 className="text-yellow-500 text-2xl font-serif italic mb-4">{modalData.title}</h2>
-            <div className="text-5xl text-center text-white my-6 font-mono">{modalData.score}</div>
-            <p className="text-white/80 leading-relaxed mb-4 font-sans text-sm">{modalData.details}</p>
-            <p className="text-yellow-500 font-semibold font-mono text-xs uppercase tracking-widest">{modalData.elementInteraction}</p>
-            <button onClick={() => setModalData(null)} className="mt-6 w-full p-3 rounded-lg bg-red-900 text-white font-bold">Close</button>
+        <div className="fixed inset-0 bg-zinc-950/90 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setModalData(null)}>
+          <div className="bg-zinc-900 p-8 rounded-2xl max-w-lg w-full border border-zinc-800 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h2 className="text-amber-400 text-2xl font-serif italic mb-6 text-center">{modalData.title}</h2>
+            
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              {[modalData.romance, modalData.business, modalData.friendship].map(item => (
+                <div key={item.type} className="bg-zinc-950 p-3 rounded-xl border border-zinc-800 text-center">
+                  <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold mb-1">{item.type}</div>
+                  <div className="text-lg font-bold text-white">{item.score}</div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-zinc-300 leading-relaxed mb-4 font-sans text-sm">{compatibilityText[modalData.romance.comp as keyof typeof compatibilityText][lang]}</p>
+            <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest">{modalData.elementInteraction}</p>
+            <button onClick={() => setModalData(null)} className="mt-6 w-full p-3 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 transition-all">Close</button>
           </div>
         </div>
       )}
