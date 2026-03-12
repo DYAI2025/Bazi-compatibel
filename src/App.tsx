@@ -99,7 +99,8 @@ export default function App() {
     romance: { type: string, score: string, comp: string },
     business: { type: string, score: string, comp: string },
     friendship: { type: string, score: string, comp: string },
-    elementInteraction: string 
+    elementInteraction: string,
+    yinYangAnalysis: string
   } | null>(null);
 
   const calculateAnimal = async () => {
@@ -179,13 +180,15 @@ export default function App() {
     };
 
     const elementInteraction = getInteractionDescription(animal1.element, animal2.element, interaction);
-
+    const yinYangAnalysis = getYinYangAnalysis(row, col);
+    
     setModalData({
       title: `${animal1.emoji} ${lang === 'de' ? animal1.de : animal1.en} + ${animal2.emoji} ${lang === 'de' ? animal2.de : animal2.en}`,
       romance,
       business,
       friendship,
-      elementInteraction
+      elementInteraction,
+      yinYangAnalysis
     });
   };
 
@@ -199,6 +202,48 @@ export default function App() {
         if (filter === 'moderate-good') return a.comp === 'moderate' || a.comp === 'good';
         return false;
       });
+  };
+
+  const getLuckyCharm = (year: number) => {
+    const index = (year - 4) % 12;
+    const animalIndex = index < 0 ? index + 12 : index;
+    const animalsList = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'];
+    return animalsList[animalIndex];
+  };
+
+  const getDailyFortune = (animal: string) => {
+    const fortunes = {
+      Rat: "Your quick wit will open doors today. Trust your instincts!",
+      Ox: "Persistence is your superpower today. Keep going!",
+      Tiger: "A bold move will bring unexpected rewards. Be brave!",
+      Rabbit: "Harmony surrounds you. Take time to appreciate the small things.",
+      Dragon: "Your natural charisma is at an all-time high. Lead with confidence.",
+      Snake: "Wisdom and patience will solve a lingering problem.",
+      Horse: "Adventure calls! Embrace a new opportunity with open arms.",
+      Goat: "Creativity flows through you. Express yourself freely.",
+      Monkey: "A playful approach will turn a difficult task into fun.",
+      Rooster: "Your attention to detail will be noticed and appreciated.",
+      Dog: "Loyalty and kindness will strengthen a key relationship.",
+      Pig: "Abundance is coming your way. Share your joy with others."
+    };
+    return fortunes[animal as keyof typeof fortunes] || "A wonderful day awaits!";
+  };
+
+  const getYinYangAnalysis = (animal1Index: number, animal2Index: number) => {
+    // Simplified Yin/Yang: Even index = Yang, Odd index = Yin
+    const getYinYang = (index: number) => (index % 2 === 0 ? 'Yang' : 'Yin');
+    const yy1 = getYinYang(animal1Index);
+    const yy2 = getYinYang(animal2Index);
+    
+    if (yy1 === yy2) {
+      return lang === 'de' 
+        ? `Beide sind ${yy1}. Eine starke, gleichgesinnte Energie, aber es fehlt an komplementärer Balance.` 
+        : `Both are ${yy1}. A strong, like-minded energy, but lacks complementary balance.`;
+    } else {
+      return lang === 'de' 
+        ? `Ein perfektes Yin-Yang-Gleichgewicht (${yy1} & ${yy2}). Ihr ergänzt euch wunderbar.` 
+        : `A perfect Yin-Yang balance (${yy1} & ${yy2}). You complement each other beautifully.`;
+    }
   };
 
   return (
@@ -244,6 +289,16 @@ export default function App() {
               <p className="text-3xl font-bold mb-2 text-white">
                 {lang === 'de' ? animals[foundAnimalIndex].de : animals[foundAnimalIndex].en}
               </p>
+              
+              <div className="mt-6 p-4 bg-zinc-900 rounded-xl border border-zinc-800">
+                <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest mb-1">
+                  {lang === 'de' ? 'Dein Glücksbringer heute' : 'Your lucky charm today'}
+                </p>
+                <p className="text-zinc-100 text-sm italic">
+                  {getDailyFortune(animals[foundAnimalIndex].en)}
+                </p>
+              </div>
+
               {baziData && (
                 <div className="text-zinc-300 mt-6 text-xs font-sans">
                   <p className="font-serif italic text-base mb-4 text-amber-400">{lang === 'de' ? 'Deine Bazi-Pfeiler:' : 'Your Bazi Pillars:'}</p>
@@ -315,7 +370,7 @@ export default function App() {
 
       {modalData && (
         <div className="fixed inset-0 bg-zinc-950/90 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setModalData(null)}>
-          <div className="bg-zinc-900 p-8 rounded-2xl max-w-lg w-full border border-zinc-800 shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-zinc-900 p-8 rounded-2xl max-w-lg w-full border border-zinc-800 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <h2 className="text-amber-400 text-2xl font-serif italic mb-6 text-center">{modalData.title}</h2>
             
             <div className="grid grid-cols-3 gap-4 mb-6">
@@ -328,6 +383,10 @@ export default function App() {
             </div>
 
             <p className="text-zinc-300 leading-relaxed mb-4 font-sans text-sm">{compatibilityText[modalData.romance.comp as keyof typeof compatibilityText][lang]}</p>
+            <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800 mb-4">
+              <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest mb-1">Yin/Yang Balance</p>
+              <p className="text-zinc-300 text-sm">{modalData.yinYangAnalysis}</p>
+            </div>
             <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest">{modalData.elementInteraction}</p>
             <button onClick={() => setModalData(null)} className="mt-6 w-full p-3 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 transition-all">Close</button>
           </div>
