@@ -11,6 +11,7 @@
 import { useState } from 'react';
 import { fetchBaziData } from './services/baziService';
 import { BaziResponse } from './types';
+import { ResultDisplay } from './components/ResultDisplay';
 
 // Simplified Chinese New Year dates for 1950-2031
 const chineseNewYearDates = [
@@ -91,6 +92,7 @@ export default function App() {
   const [lang, setLang] = useState<'de' | 'en'>('de');
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [foundAnimalIndex, setFoundAnimalIndex] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState<boolean>(true);
   const [baziData, setBaziData] = useState<BaziResponse | null>(null);
   const [filter, setFilter] = useState<'excellent' | 'challenging' | 'moderate-good' | null>(null);
   const [baziError, setBaziError] = useState<string | null>(null);
@@ -119,6 +121,7 @@ export default function App() {
     if (index < 0) index += 12;
     
     setFoundAnimalIndex(index);
+    setShowResult(true);
     setBaziData(null); // Reset Bazi data
     setBaziError(null); // Reset error
     setFilter(null);
@@ -237,12 +240,12 @@ export default function App() {
     
     if (yy1 === yy2) {
       return lang === 'de' 
-        ? `Beide sind ${yy1}. Eine starke, gleichgesinnte Energie, aber es fehlt an komplementärer Balance.` 
-        : `Both are ${yy1}. A strong, like-minded energy, but lacks complementary balance.`;
+        ? `Beide sind ${yy1}. Eine starke, gleichgesinnte Energie, aber es fehlt an komplementärer Balance. Dies kann zu einer sehr fokussierten, aber potenziell einseitigen Dynamik führen.` 
+        : `Both are ${yy1}. A strong, like-minded energy, but lacks complementary balance. This can lead to a very focused, but potentially one-sided dynamic.`;
     } else {
       return lang === 'de' 
-        ? `Ein perfektes Yin-Yang-Gleichgewicht (${yy1} & ${yy2}). Ihr ergänzt euch wunderbar.` 
-        : `A perfect Yin-Yang balance (${yy1} & ${yy2}). You complement each other beautifully.`;
+        ? `Ein perfektes Yin-Yang-Gleichgewicht (${yy1} & ${yy2}). Ihr ergänzt euch wunderbar. Diese Kombination schafft eine natürliche Harmonie, in der sich Aktivität und Ruhe gegenseitig stützen.` 
+        : `A perfect Yin-Yang balance (${yy1} & ${yy2}). You complement each other beautifully. This combination creates a natural harmony where activity and rest support each other.`;
     }
   };
 
@@ -265,6 +268,21 @@ export default function App() {
       </div>
 
       <div className="max-w-md mx-auto bg-zinc-900 p-8 rounded-2xl border border-zinc-800 mb-10 shadow-2xl">
+        <div className="mb-8 text-center">
+          <h3 className="text-white text-lg font-serif italic mb-2">
+            {lang === 'de' ? 'So funktioniert die Matrix' : 'How the Matrix works'}
+          </h3>
+          <p className="text-zinc-400 text-sm mb-4">
+            {lang === 'de' 
+              ? 'Gib dein Geburtsdatum ein und entdecke dein chinesisches Tierkreiszeichen. Anschließend zeigt dir die Matrix, welche Zeichen besonders gut zu dir passen und wo eher Spannung, Wachstum oder Reibung entsteht.' 
+              : 'Enter your date of birth and discover your Chinese zodiac sign. The matrix will then show you which signs are a particularly good match for you and where tension, growth, or friction is more likely to occur.'}
+          </p>
+          <p className="text-zinc-500 text-xs italic">
+            {lang === 'de' 
+              ? 'Finde in Sekunden heraus, welches Zeichen du bist – und wer zu dir passt. Die Matrix zeigt dir deinen ersten energetischen Match auf Basis deines Geburtsdatums. Schnell, intuitiv und perfekt für den Einstieg.' 
+              : 'Find out in seconds which sign you are – and who is a good match for you. The matrix shows you your first energetic match based on your date of birth. Fast, intuitive, and perfect for getting started.'}
+          </p>
+        </div>
         <h2 className="text-amber-400 mb-6 text-xl font-serif italic">
           {lang === 'de' ? '🎯 Finde dein Tier' : '🎯 Find Your Animal'}
         </h2>
@@ -281,68 +299,94 @@ export default function App() {
         
         {foundAnimalIndex !== null && (
           <div className="mt-8 pt-8 border-t border-zinc-800">
-            <div className="mb-8 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 text-center">
-              <h3 className="text-zinc-300 text-sm font-serif italic mb-2">
-                {lang === 'de' ? 'Dein Tierzeichen:' : 'Your Zodiac Animal:'}
-              </h3>
-              <div className="text-7xl mb-4">{animals[foundAnimalIndex].emoji}</div>
-              <p className="text-3xl font-bold mb-2 text-white">
-                {lang === 'de' ? animals[foundAnimalIndex].de : animals[foundAnimalIndex].en}
-              </p>
-              
-              <div className="mt-6 p-4 bg-zinc-900 rounded-xl border border-zinc-800">
-                <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest mb-1">
-                  {lang === 'de' ? 'Dein Glücksbringer heute' : 'Your lucky charm today'}
-                </p>
-                <p className="text-zinc-100 text-sm italic">
-                  {getDailyFortune(animals[foundAnimalIndex].en)}
-                </p>
-              </div>
-
-              {baziData && (
-                <div className="text-zinc-300 mt-6 text-xs font-sans">
-                  <p className="font-serif italic text-base mb-4 text-amber-400">{lang === 'de' ? 'Deine Bazi-Pfeiler:' : 'Your Bazi Pillars:'}</p>
-                  <div className="grid grid-cols-2 gap-3 text-center">
-                    {['year', 'month', 'day', 'hour'].map((p) => (
-                      <div key={p} className="bg-zinc-900 p-3 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col items-center gap-1">
-                        <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">{lang === 'de' ? p : p}</div>
-                        <div className="text-sm font-bold text-white font-mono">{baziData.pillars[p as keyof typeof baziData.pillars].stamm} {baziData.pillars[p as keyof typeof baziData.pillars].zweig}</div>
-                        <div className="text-[10px] text-zinc-400">{baziData.pillars[p as keyof typeof baziData.pillars].tier}</div>
-                        <div className="text-[9px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-300">{baziData.pillars[p as keyof typeof baziData.pillars].element}</div>
-                      </div>
-                    ))}
+            {showResult ? (
+              <ResultDisplay 
+                sign={lang === 'de' ? animals[foundAnimalIndex].de : animals[foundAnimalIndex].en} 
+                onNextStep={() => setShowResult(false)} 
+              />
+            ) : (
+              <>
+                <div className="mb-8 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 text-center">
+                  <h3 className="text-zinc-300 text-sm font-serif italic mb-2">
+                    {lang === 'de' ? 'Dein Tierzeichen:' : 'Your Zodiac Animal:'}
+                  </h3>
+                  <div className="text-7xl mb-4">{animals[foundAnimalIndex].emoji}</div>
+                  <p className="text-3xl font-bold mb-2 text-white">
+                    {lang === 'de' ? animals[foundAnimalIndex].de : animals[foundAnimalIndex].en}
+                  </p>
+                  
+                  <div className="mt-6 p-4 bg-zinc-900 rounded-xl border border-zinc-800">
+                    <div className="flex justify-between items-start mb-2">
+                      <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest">
+                        {lang === 'de' ? 'Dein Glücksbringer heute' : 'Your lucky charm today'}
+                      </p>
+                      {typeof navigator !== 'undefined' && navigator.share && (
+                        <button 
+                          onClick={() => navigator.share({
+                            title: lang === 'de' ? 'Mein tägliches Glück' : 'My daily fortune',
+                            text: getDailyFortune(animals[foundAnimalIndex].en),
+                            url: window.location.href
+                          }).catch(console.error)}
+                          className="text-zinc-500 hover:text-amber-400 transition-colors"
+                        >
+                          🔗
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-zinc-100 text-sm italic">
+                      {getDailyFortune(animals[foundAnimalIndex].en)}
+                    </p>
                   </div>
-                </div>
-              )}
-            </div>
 
-            <h3 className="text-zinc-300 mb-4 font-serif italic text-sm">{lang === 'de' ? 'Wähle eine Kategorie:' : 'Select a category:'}</h3>
-            <select onChange={(e) => setFilter(e.target.value as any)} className="w-full p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-white focus:border-amber-500 outline-none">
-              <option value="">-- {lang === 'de' ? 'Kategorie wählen' : 'Select category'} --</option>
-              <option value="excellent">{lang === 'de' ? 'Am kompatibelsten' : 'Most compatible'}</option>
-              <option value="moderate-good">{lang === 'de' ? 'Moderat bis Gut' : 'Moderate to Good'}</option>
-              <option value="challenging">{lang === 'de' ? 'Konfliktpotenzial' : 'Conflict potential'}</option>
-            </select>
-            
-            {filter && (
-              <div className="mt-6">
-                <h4 className="text-zinc-400 font-serif italic mb-3 text-sm">{lang === 'de' ? 'Ergebnisse:' : 'Results:'}</h4>
-                <div className="grid grid-cols-2 gap-3">
-                  {getFilteredAnimals().map(a => (
-                    <button key={a.en} onClick={() => showCompatibility(foundAnimalIndex, a.index)} className="p-3 bg-zinc-950 rounded-xl border border-zinc-800 hover:border-amber-500/50 hover:bg-zinc-900 transition-all text-sm">
-                      {a.emoji} {lang === 'de' ? a.de : a.en}
-                    </button>
-                  ))}
+                  {baziData && (
+                    <div className="text-zinc-300 mt-6 text-xs font-sans">
+                      <p className="font-serif italic text-base mb-4 text-amber-400">{lang === 'de' ? 'Deine Bazi-Pfeiler:' : 'Your Bazi Pillars:'}</p>
+                      <div className="grid grid-cols-2 gap-3 text-center">
+                        {['year', 'month', 'day', 'hour'].map((p) => (
+                          <div key={p} className="bg-zinc-900 p-3 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col items-center gap-1">
+                            <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">{lang === 'de' ? p : p}</div>
+                            <div className="text-sm font-bold text-white font-mono">{baziData.pillars[p as keyof typeof baziData.pillars].stamm} {baziData.pillars[p as keyof typeof baziData.pillars].zweig}</div>
+                            <div className="text-[10px] text-zinc-400">{baziData.pillars[p as keyof typeof baziData.pillars].tier}</div>
+                            <div className="text-[9px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-300">{baziData.pillars[p as keyof typeof baziData.pillars].element}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+
+                <h3 className="text-zinc-300 mb-4 font-serif italic text-sm">{lang === 'de' ? 'Wähle eine Kategorie:' : 'Select a category:'}</h3>
+                <select onChange={(e) => setFilter(e.target.value as any)} className="w-full p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-white focus:border-amber-500 outline-none">
+                  <option value="">-- {lang === 'de' ? 'Kategorie wählen' : 'Select category'} --</option>
+                  <option value="excellent">{lang === 'de' ? 'Am kompatibelsten' : 'Most compatible'}</option>
+                  <option value="moderate-good">{lang === 'de' ? 'Moderat bis Gut' : 'Moderate to Good'}</option>
+                  <option value="challenging">{lang === 'de' ? 'Konfliktpotenzial' : 'Conflict potential'}</option>
+                </select>
+                
+                {filter && (
+                  <div className="mt-6">
+                    <h4 className="text-zinc-400 font-serif italic mb-3 text-sm">{lang === 'de' ? 'Ergebnisse:' : 'Results:'}</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      {getFilteredAnimals().map(a => (
+                        <button key={a.en} onClick={() => showCompatibility(foundAnimalIndex, a.index)} className="p-3 bg-zinc-950 rounded-xl border border-zinc-800 hover:border-amber-500/50 hover:bg-zinc-900 transition-all text-sm">
+                          {a.emoji} {lang === 'de' ? a.de : a.en}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
       </div>
 
 
-      <div className="overflow-x-auto max-w-4xl mx-auto bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-2xl">
-        <table className="w-full border-collapse font-mono text-[10px]">
+      <div className="overflow-x-auto w-full max-w-4xl mx-auto bg-zinc-900 p-4 sm:p-6 rounded-2xl border border-zinc-800 shadow-2xl scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900">
+        <p className="text-zinc-500 text-[10px] uppercase tracking-widest mb-4 text-center sm:hidden">
+          {lang === 'de' ? 'Horizontal wischen, um mehr zu sehen' : 'Swipe horizontally to see more'}
+        </p>
+        <table className="w-full border-collapse font-mono text-[9px] sm:text-[10px]">
           <thead>
             <tr>
               <th className="p-3 border border-zinc-800"></th>
@@ -355,9 +399,19 @@ export default function App() {
                 <th className="p-3 border border-zinc-800 text-amber-500">{rowAnimal.emoji}</th>
                 {animals.map((colAnimal, colIndex) => {
                   const comp = compatibilityRomance[rowIndex as keyof typeof compatibilityRomance][colIndex as keyof typeof compatibilityRomance[0]];
-                  const color = comp === 'excellent' ? 'bg-amber-900/40' : comp === 'good' ? 'bg-amber-900/20' : comp === 'moderate' ? 'bg-zinc-800/50' : 'bg-zinc-950';
+                  
+                  const getCellClasses = (comp: string) => {
+                    switch (comp) {
+                      case 'excellent': return 'bg-gradient-to-br from-amber-500/30 to-amber-900/20';
+                      case 'good': return 'bg-gradient-to-br from-amber-700/20 to-zinc-900/10';
+                      case 'moderate': return 'bg-gradient-to-br from-zinc-700/20 to-zinc-900/10';
+                      case 'challenging': return 'bg-gradient-to-br from-red-900/20 to-zinc-950';
+                      default: return 'bg-zinc-950';
+                    }
+                  };
+                  
                   return (
-                    <td key={colAnimal.en} className={`p-3 border border-zinc-800 text-center cursor-pointer ${color} hover:bg-amber-500/20 transition-all`} onClick={() => showCompatibility(rowIndex, colIndex)}>
+                    <td key={colAnimal.en} className={`p-3 border border-zinc-800 text-center cursor-pointer ${getCellClasses(comp)} hover:scale-105 transition-all duration-300`} onClick={() => showCompatibility(rowIndex, colIndex)}>
                       {comp === 'excellent' ? '✨' : comp === 'good' ? '👍' : comp === 'moderate' ? '⚖️' : '😰'}
                     </td>
                   );
@@ -370,7 +424,7 @@ export default function App() {
 
       {modalData && (
         <div className="fixed inset-0 bg-zinc-950/90 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setModalData(null)}>
-          <div className="bg-zinc-900 p-8 rounded-2xl max-w-lg w-full border border-zinc-800 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+          <div className="bg-zinc-900 p-8 rounded-2xl max-w-lg w-full border border-zinc-800 shadow-2xl" onClick={e => e.stopPropagation()}>
             <h2 className="text-amber-400 text-2xl font-serif italic mb-6 text-center">{modalData.title}</h2>
             
             <div className="grid grid-cols-3 gap-4 mb-6">
