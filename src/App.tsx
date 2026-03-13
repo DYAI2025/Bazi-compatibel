@@ -313,6 +313,9 @@ export default function App() {
               : 'You can discover in a few seconds which sign you are and which signs are fundamentally a good match for you. But true depth only begins where your personal dynamic becomes visible. That is exactly why you create your profile – as the next step toward a more precise relationship analysis.'}
           </p>
         </div>
+        <h3 className="text-zinc-400 mb-2 text-sm font-serif italic">
+          {lang === 'de' ? 'Chinesisches Bazi Horoskop Matching - Welches Tierzeichen passt zu meinem?' : 'Chinese Bazi Horoscope Matching - Which animal sign matches mine?'}
+        </h3>
         <h2 className="text-amber-400 mb-6 text-xl font-serif italic">
           {lang === 'de' ? 'Finde in Sekunden heraus, welches Zeichen du bist – und wer zu dir passt.' : 'Find out in seconds which sign you are – and who is a good match for you.'}
         </h2>
@@ -576,7 +579,21 @@ export default function App() {
               <p className="text-zinc-300 text-sm">{modalData.yinYangAnalysis}</p>
             </div>
             <p className="text-amber-500 font-semibold font-mono text-[10px] uppercase tracking-widest">{modalData.elementInteraction}</p>
-            <button onClick={() => setModalData(null)} className="mt-6 w-full p-3 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 transition-all">Close</button>
+            <div className="flex gap-2 mt-6">
+              <button onClick={() => setModalData(null)} className="flex-1 p-3 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 transition-all">Close</button>
+              {typeof navigator !== 'undefined' && navigator.share && (
+                <button 
+                  onClick={() => navigator.share({
+                    title: 'Bazi Compatibility',
+                    text: `Check out our compatibility: ${modalData.title}. Romance Score: ${modalData.romance.score}. ${modalData.elementInteraction}`,
+                    url: window.location.href
+                  }).catch(console.error)}
+                  className="flex-1 p-3 rounded-xl bg-amber-500 text-zinc-950 font-bold hover:bg-amber-400 transition-all"
+                >
+                  {lang === 'de' ? 'Teilen' : 'Share'}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

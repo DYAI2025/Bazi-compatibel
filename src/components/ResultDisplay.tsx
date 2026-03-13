@@ -4,9 +4,11 @@ interface ResultDisplayProps {
   sign: string;
   onNextStep: () => void;
   lang: 'de' | 'en';
+  compatibilityScore?: string;
+  relationshipDescription?: string;
 }
 
-export const ResultDisplay: React.FC<ResultDisplayProps> = ({ sign, onNextStep, lang }) => {
+export const ResultDisplay: React.FC<ResultDisplayProps> = ({ sign, onNextStep, lang, compatibilityScore, relationshipDescription }) => {
   const content = {
     de: {
       headline: 'Dein Zeichen ist:',
@@ -25,6 +27,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ sign, onNextStep, 
   };
 
   const t = content[lang];
+
+  const shareData = {
+    title: lang === 'de' ? 'Mein chinesisches Tierkreiszeichen' : 'My Chinese zodiac sign',
+    text: `${t.headline} ${sign}! ${compatibilityScore ? `\nCompatibility Score: ${compatibilityScore}` : ''}${relationshipDescription ? `\nRelationship: ${relationshipDescription}` : ''}`,
+    url: window.location.href
+  };
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-zinc-900 rounded-3xl border border-zinc-800 shadow-2xl">
@@ -51,11 +59,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ sign, onNextStep, 
         </button>
         {typeof navigator !== 'undefined' && navigator.share && (
           <button 
-            onClick={() => navigator.share({
-              title: lang === 'de' ? 'Mein chinesisches Tierkreiszeichen' : 'My Chinese zodiac sign',
-              text: `${t.headline} ${sign}!`,
-              url: window.location.href
-            }).catch(console.error)}
+            onClick={() => navigator.share(shareData).catch(console.error)}
             className="px-6 py-4 bg-zinc-800 text-white font-bold rounded-xl hover:bg-zinc-700 transition-all"
           >
             {t.share}
