@@ -281,9 +281,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 p-6 md:p-10 text-zinc-100 font-sans">
       <header className="text-center mb-12">
-        <h1 className="text-5xl md:text-6xl font-serif italic mb-3 text-white">
-          {lang === 'de' ? 'Bazi Love Match' : 'Bazi Love Match'}
-        </h1>
+        <a href="https://bazodiac.space" className="inline-block hover:opacity-80 transition-opacity">
+          <h1 className="text-5xl md:text-6xl font-serif italic mb-3 text-white">
+            {lang === 'de' ? 'Bazi Love Match' : 'Bazi Love Match'}
+          </h1>
+        </a>
         <p className="text-zinc-400 uppercase tracking-[0.2em] text-[10px] font-bold">
           {lang === 'de' ? 'Chinesisches Horoskop, Astrologie, Destiny & Kompatibilität' : 'Chinese Horoscope, Astrology, Destiny & Compatibility'}
         </p>

@@ -66,6 +66,14 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ sign, onNextStep, 
           </button>
         )}
       </div>
+      <div className="mt-8 text-center">
+        <a 
+          href="https://bazodiac.space" 
+          className="text-zinc-500 text-sm hover:text-amber-500 transition-colors underline decoration-zinc-800 underline-offset-4"
+        >
+          {lang === 'de' ? 'Zurück zur Hauptseite bazodiac.space' : 'Back to main site bazodiac.space'}
+        </a>
+      </div>
     </div>
   );
 };
