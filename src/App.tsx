@@ -13,6 +13,7 @@ import { fetchBaziData } from './services/baziService';
 import { BaziResponse } from './types';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ProfileFunnel } from './components/ProfileFunnel';
+import { AboutBazi } from './components/AboutBazi';
 import { FAQ } from './components/FAQ';
 import { Heart } from './components/Heart';
 
@@ -583,6 +584,8 @@ export default function App() {
         </div>
 
       <ProfileFunnel lang={lang} />
+      
+      <AboutBazi lang={lang} />
       
       <FAQ />
 
