@@ -43,9 +43,14 @@ export const ProfileFunnel: React.FC<ProfileFunnelProps> = ({ lang }) => {
         ))}
       </ul>
 
-      <button className="w-full py-4 bg-amber-500 text-zinc-950 font-bold rounded-xl hover:bg-amber-400 transition-all">
+      <a 
+        href="https://bazodiac.space" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block w-full py-4 bg-amber-500 text-zinc-950 text-center font-bold rounded-xl hover:bg-amber-400 transition-all"
+      >
         {t.cta}
-      </button>
+      </a>
     </div>
   );
 };

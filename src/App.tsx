@@ -282,10 +282,10 @@ export default function App() {
     <div className="min-h-screen bg-zinc-950 p-6 md:p-10 text-zinc-100 font-sans">
       <header className="text-center mb-12">
         <h1 className="text-5xl md:text-6xl font-serif italic mb-3 text-white">
-          BaZi Matrix
+          {lang === 'de' ? 'Bazi Love Match' : 'Bazi Love Match'}
         </h1>
         <p className="text-zinc-400 uppercase tracking-[0.2em] text-[10px] font-bold">
-          {lang === 'de' ? 'Sternzeichen & Kompatibilität' : 'Zodiac & Compatibility'}
+          {lang === 'de' ? 'Chinesisches Horoskop, Astrologie, Destiny & Kompatibilität' : 'Chinese Horoscope, Astrology, Destiny & Compatibility'}
         </p>
       </header>
 
@@ -441,9 +441,14 @@ export default function App() {
                       ? 'Vollständiges Bazodiac-profil hier anlegen und die wahre Vielfältigkeit deiner Persönlichkeit ergründen aus deinen westlichen Zeichen, dem Chinesischen Bazi und der Lehre der WuXing elemente..' 
                       : 'Create your full Bazodiac profile here and explore the true diversity of your personality from your Western signs, Chinese Bazi, and the teachings of the WuXing elements..'}
                   </p>
-                  <button className="px-8 py-3 bg-amber-500 text-zinc-950 font-bold rounded-full hover:bg-amber-400 transition-all">
+                  <a 
+                    href="https://bazodiac.space" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-amber-500 text-zinc-950 font-bold rounded-full hover:bg-amber-400 transition-all"
+                  >
                     {lang === 'de' ? 'Bazodiac Profil erstellen' : 'Create Bazodiac Profile'}
-                  </button>
+                  </a>
                 </div>
 
                 <div className="mt-8 p-6 bg-zinc-900 rounded-2xl border border-zinc-800 text-center">
@@ -565,9 +570,14 @@ export default function App() {
               : 'The matrix shows you the quick start: your sign and initial compatibilities. If you really want to understand how you experience relationships, which patterns shape you, and why certain people attract or trigger you particularly, you need more than just your sign.'
             }
           </p>
-          <button className="bg-amber-500 text-zinc-950 font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all">
+          <a 
+            href="https://bazodiac.space" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block bg-amber-500 text-zinc-950 font-bold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all"
+          >
             {lang === 'de' ? 'Mein Profil erstellen' : 'Create my profile'}
-          </button>
+          </a>
         </div>
 
       <ProfileFunnel lang={lang} />
